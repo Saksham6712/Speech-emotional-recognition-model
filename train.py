@@ -1,37 +1,3 @@
-"""
-train.py
---------
-Fine-tunes a pretrained Wav2Vec2 model (facebook/wav2vec2-base) on the TESS
-(Toronto Emotional Speech Set) dataset for speech emotion classification.
-
-This is transfer learning: we keep Wav2Vec2's pretrained speech
-representations and train a new classification head on top of them for our
-7 emotion classes. No LSTM / CNN layers are used anywhere in this project.
-
-Expected TESS folder layout (as distributed on Kaggle):
-
-    TESS_DATA_DIR/
-        OAF_angry/
-            OAF_back_angry.wav
-            ...
-        OAF_disgust/
-        OAF_Fear/
-        OAF_happy/
-        OAF_neutral/
-        OAF_Pleasant_surprise/
-        OAF_Sad/
-        YAF_angry/
-        ... (same pattern for the YAF speaker)
-
-The script infers the emotion label from each folder/file name, so minor
-naming variations (e.g. "Pleasant_surprise" vs "surprise") are handled by
-`normalize_label()` below. Update TESS_DATA_DIR to point at your local copy
-of the dataset before running.
-
-Usage:
-    python train.py --data_dir /path/to/TESS --epochs 8 --batch_size 4
-"""
-
 import argparse
 import os
 import glob
@@ -85,10 +51,7 @@ def normalize_label(raw_name: str) -> str:
 
 
 def collect_tess_files(data_dir: str):
-    """
-    Walk the TESS dataset directory and return a list of
-    (file_path, label_id) pairs.
-    """
+
     samples = []
     wav_files = glob.glob(os.path.join(data_dir, "**", "*.wav"), recursive=True)
 
@@ -188,7 +151,6 @@ def main():
         per_device_train_batch_size=args.batch_size,
         per_device_eval_batch_size=args.batch_size,
         learning_rate=args.learning_rate,
-        warmup_ratio=0.1,
         weight_decay=0.01,
         eval_strategy="epoch",
         save_strategy="epoch",
