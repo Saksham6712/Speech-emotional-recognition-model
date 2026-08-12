@@ -1,0 +1,327 @@
+
+:root {
+    --color-bg-top: #eef4ff;
+    --color-bg-bottom: #ffffff;
+    --color-primary: #2f6fed;
+    --color-primary-dark: #1d4fc4;
+    --color-primary-soft: #e4ecff;
+    --color-ink: #10203f;
+    --color-ink-muted: #5b6b8c;
+    --color-line: #dde6fb;
+    --color-white: #ffffff;
+    --color-danger: #d1495b;
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --shadow-soft: 0 20px 45px -20px rgba(47, 111, 237, 0.25);
+    --font-display: "Sora", sans-serif;
+    --font-body: "Inter", sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background: linear-gradient(180deg, var(--color-bg-top) 0%, var(--color-bg-bottom) 55%);
+    min-height: 100vh;
+}
+
+/* -------------------------------------------------------------------- */
+/* Ambient waveform strip at the very top of the page                    */
+/* -------------------------------------------------------------------- */
+.wave-strip {
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    background: var(--color-primary);
+}
+
+.wave-strip svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.wave-strip path {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.55);
+    stroke-width: 2;
+    animation: waveDrift 6s ease-in-out infinite;
+}
+
+@keyframes waveDrift {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+}
+
+/* -------------------------------------------------------------------- */
+/* Header                                                                */
+/* -------------------------------------------------------------------- */
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--color-primary-soft);
+    color: var(--color-primary-dark);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    display: inline-block;
+}
+
+.app-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin: 0.4em 0 0.3em;
+    color: var(--color-ink);
+}
+
+.app-subtitle {
+    max-width: 560px;
+    color: var(--color-ink-muted);
+    font-size: 1.02rem;
+    line-height: 1.6;
+}
+
+/* -------------------------------------------------------------------- */
+/* Panels                                                                */
+/* -------------------------------------------------------------------- */
+.panel {
+    background: var(--color-white);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem;
+}
+
+.panel-title {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.panel-hint {
+    color: var(--color-ink-muted);
+    font-size: 0.88rem;
+    margin-bottom: 1.25rem;
+}
+
+/* -------------------------------------------------------------------- */
+/* Dropzone / file upload                                               */
+/* -------------------------------------------------------------------- */
+.dropzone {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1.5px dashed var(--color-line);
+    background: var(--color-primary-soft);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.dropzone:hover,
+.dropzone.dragover {
+    border-color: var(--color-primary);
+    background: #dfe9ff;
+}
+
+.dropzone-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.dropzone-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropzone-main {
+    font-weight: 600;
+    color: var(--color-ink);
+}
+
+.dropzone-sub {
+    font-size: 0.85rem;
+    color: var(--color-ink-muted);
+}
+
+/* -------------------------------------------------------------------- */
+/* Buttons                                                              */
+/* -------------------------------------------------------------------- */
+.btn-detect {
+    background: var(--color-primary);
+    color: var(--color-white);
+    font-weight: 600;
+    font-family: var(--font-display);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-detect:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+}
+
+.btn-detect:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+.btn-detect:disabled {
+    background: #b9c8f2;
+    cursor: not-allowed;
+}
+
+.btn-detect:focus-visible {
+    outline: 3px solid var(--color-primary-dark);
+    outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------------- */
+/* Error box                                                            */
+/* -------------------------------------------------------------------- */
+.alert-custom {
+    background: #fdecef;
+    color: var(--color-danger);
+    border: 1px solid #f6c8d0;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* -------------------------------------------------------------------- */
+/* Result panel                                                         */
+/* -------------------------------------------------------------------- */
+.result-panel {
+    animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.result-hero {
+    text-align: center;
+    padding: 1.25rem 0 1.5rem;
+}
+
+.result-emoji {
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.result-emotion {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--color-primary-dark);
+    margin-top: 0.4rem;
+}
+
+.result-file {
+    color: var(--color-ink-muted);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    word-break: break-all;
+}
+
+.confidence-block {
+    margin-top: 0.5rem;
+}
+
+.confidence-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-ink-muted);
+    margin-bottom: 0.4rem;
+}
+
+.confidence-track {
+    width: 100%;
+    height: 10px;
+    background: var(--color-primary-soft);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.confidence-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+    border-radius: 999px;
+    transition: width 0.6s ease;
+}
+
+.score-breakdown {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem 1.2rem;
+}
+
+.score-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--color-ink-muted);
+    border-bottom: 1px dashed var(--color-line);
+    padding-bottom: 0.3rem;
+}
+
+.score-row span:last-child {
+    color: var(--color-ink);
+    font-weight: 600;
+}
+
+/* -------------------------------------------------------------------- */
+/* Footer                                                                */
+/* -------------------------------------------------------------------- */
+.app-footer {
+    margin-top: 2.5rem;
+    color: var(--color-ink-muted);
+    font-size: 0.82rem;
+}
+
+/* -------------------------------------------------------------------- */
+/* Responsive tweaks                                                     */
+/* -------------------------------------------------------------------- */
+@media (max-width: 576px) {
+    .panel {
+        padding: 1.4rem;
+    }
+
+    .score-breakdown {
+        grid-template-columns: 1fr;
+    }
+
+    .dropzone {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .wave-strip path,
+    .result-panel {
+        animation: none !important;
+    }
+}

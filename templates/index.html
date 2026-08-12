@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Emotion Detection</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Ambient waveform strip -->
+    <div class="wave-strip" aria-hidden="true">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+            <path id="wavePath" d="M0,30 Q30,10 60,30 T120,30 T180,30 T240,30 T300,30 T360,30 T420,30 T480,30 T540,30 T600,30 T660,30 T720,30 T780,30 T840,30 T900,30 T960,30 T1020,30 T1080,30 T1140,30 T1200,30" />
+        </svg>
+    </div>
+
+    <main class="container py-5">
+
+        <!-- Header -->
+        <header class="text-center mb-5">
+            <div class="brand-badge mx-auto mb-3">
+                <span class="badge-dot"></span> Wav2Vec2 &middot; Transfer Learning
+            </div>
+            <h1 class="app-title">Speech Emotion Detection</h1>
+            <p class="app-subtitle mx-auto">
+                Upload a short voice recording and a Wav2Vec2 transformer, fine-tuned on the
+                TESS emotional speech dataset, will listen for the emotion behind the words.
+            </p>
+        </header>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+
+                <!-- Upload card -->
+                <section class="panel mb-4">
+                    <h2 class="panel-title">1. Upload your audio</h2>
+                    <p class="panel-hint">WAV, MP3, FLAC, OGG or M4A &middot; up to 15&nbsp;MB</p>
+
+                    <label for="audioInput" class="dropzone" id="dropzone">
+                        <input type="file" id="audioInput" accept=".wav,.mp3,.flac,.ogg,.m4a" hidden>
+                        <div class="dropzone-icon">🎙️</div>
+                        <div class="dropzone-text">
+                            <span class="dropzone-main">Click to choose a file</span>
+                            <span class="dropzone-sub" id="fileNameLabel">or drag it in here</span>
+                        </div>
+                    </label>
+
+                    <audio id="audioPreview" class="w-100 mt-3 d-none" controls></audio>
+
+                    <button id="detectBtn" class="btn btn-detect w-100 mt-4" disabled>
+                        <span id="detectBtnText">Detect Emotion</span>
+                        <span id="detectSpinner" class="spinner-border spinner-border-sm d-none ms-2"></span>
+                    </button>
+
+                    <div id="errorBox" class="alert-custom d-none mt-3"></div>
+                </section>
+
+                <!-- Result card -->
+                <section class="panel result-panel d-none" id="resultPanel">
+                    <h2 class="panel-title">2. Result</h2>
+
+                    <div class="result-hero">
+                        <div class="result-emoji" id="resultEmoji">😐</div>
+                        <div class="result-emotion" id="resultEmotion">Neutral</div>
+                        <div class="result-file" id="resultFilename">filename.wav</div>
+                    </div>
+
+                    <div class="confidence-block">
+                        <div class="confidence-label">
+                            <span>Confidence</span>
+                            <span id="confidenceValue">0%</span>
+                        </div>
+                        <div class="confidence-track">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                    </div>
+
+                    <div id="scoreBreakdown" class="score-breakdown"></div>
+                </section>
+
+            </div>
+        </div>
+
+        <footer class="text-center app-footer">
+            No login &middot; No database &middot; Runs fully on your machine
+        </footer>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
